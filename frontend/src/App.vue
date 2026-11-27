@@ -2,9 +2,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import axios from 'axios'
-import StudentTasks from './components/StudentTasks.vue'
-import StudentFocus from './components/StudentFocus.vue'
-import StudentAnalytics from './components/StudentAnalytics.vue'
+import StudentWorkspace from './components/StudentWorkspace.vue'
 
 const username = ref('')
 const password = ref('')
@@ -160,6 +158,7 @@ function logout() {
       </main>
     </div>
 
+    <StudentWorkspace v-else-if="user.role === 'student'" :user="user" :token="accessToken" @logout="logout" @unauthorized="logout" />
     <div v-else class="dashboard">
       <header class="dashboard-header">
         <div class="brand dark-brand">
@@ -171,21 +170,6 @@ function logout() {
         </button>
       </header>
 
-      <StudentTasks
-        v-if="user.role === 'student'"
-        :token="accessToken"
-        @unauthorized="logout"
-      />
-      <StudentFocus
-        v-if="user.role === 'student'"
-        :token="accessToken"
-        @unauthorized="logout"
-      />
-      <StudentAnalytics
-        v-if="user.role === 'student'"
-        :token="accessToken"
-        @unauthorized="logout"
-      />
       <main class="dashboard-content">
         <span class="eyebrow dark-eyebrow">WELCOME</span>
         <h1>你好，{{ user.alias || user.username }}！</h1>
