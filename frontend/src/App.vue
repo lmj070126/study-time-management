@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 import axios from 'axios'
 import StudentTasks from './components/StudentTasks.vue'
 import StudentFocus from './components/StudentFocus.vue'
+import StudentAnalytics from './components/StudentAnalytics.vue'
 
 const username = ref('')
 const password = ref('')
@@ -176,6 +177,11 @@ function logout() {
         @unauthorized="logout"
       />
       <StudentFocus
+        v-if="user.role === 'student'"
+        :token="accessToken"
+        @unauthorized="logout"
+      />
+      <StudentAnalytics
         v-if="user.role === 'student'"
         :token="accessToken"
         @unauthorized="logout"

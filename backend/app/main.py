@@ -7,6 +7,7 @@ from .database import engine
 from .auth import router as auth_router
 from .tasks import router as tasks_router
 from .focus import router as focus_router
+from .analytics import router as analytics_router
 
 # 创建 FastAPI 应用
 app = FastAPI(
@@ -19,6 +20,7 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(tasks_router)
 app.include_router(focus_router)
+app.include_router(analytics_router)
 
 
 @app.get("/api/health", tags=["系统检查"])
